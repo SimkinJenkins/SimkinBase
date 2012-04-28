@@ -22,5 +22,7 @@ package com.graphics.gallery {
 		function set buttonEnabled($enabled:Boolean):void;
 		function get adjustImage(): Boolean;
 		function set adjustImage($value: Boolean): void;
+		function get loaderClass(): Class;
+		function set loaderClass($value:Class): void;
 	}
 }

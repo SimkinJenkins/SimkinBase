@@ -1,7 +1,7 @@
-package com.etnia.graphics.gallery {
+package com.graphics.gallery {
+
 	import flash.display.DisplayObject;
-	
-	
+
 	public class ThumbnailData implements IThumbnailData {
 
 		protected var _ID:String;

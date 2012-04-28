@@ -1,10 +1,7 @@
-﻿package com.etnia.graphics.gallery {
+﻿package com.graphics.gallery {
 
 	import com.display.SpriteContainer;
-	import com.graphics.gallery.IThumbnail;
-	import com.graphics.gallery.IThumbnailData;
-	import com.graphics.gallery.ThumbnailEvent;
-	
+
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;
@@ -41,6 +38,10 @@
 		protected var _adjustImage: Boolean = false;
 		protected var _defaultWidth:Number = 50;
 		protected var _defaultHeight:Number = 50;
+		protected var _loaderClass:Class;
+		
+		public function get loaderClass(): Class { return _loaderClass;}
+		public function set loaderClass($value:Class): void {}
 		
 		/**
 		 * Se utiliza para hacer el ajuste de la imagen leida al background que se paso.
@@ -178,7 +179,7 @@
 				return;
 				throw new Error("Thumbnail: No se puede cargar un $imageURL nulo");
 			}
-			trace("load image ::: " + $imageURL);
+//			trace("load image ::: " + $imageURL);
 			if(_image) {
 				addContainer(false);
 				_image = null;
@@ -230,12 +231,9 @@
 			}
 		}
 
-		protected function onProgress($event: ProgressEvent):void {
-//			trace($event.bytesLoaded + " ::: " + $event.bytesTotal);
-		}
+		protected function onProgress($event: ProgressEvent):void {}
 
 		protected function onLoadImageIOError($event: IOErrorEvent):void {
-			trace("onLoadImageIOError :: " + _data.thumbnailURL);
 			createLoadImageListeners(false);
 			showGraphic();
 			dispatchEvent(new Event(ThumbnailEventType.ON_THUMBNAIL_READY));
@@ -260,7 +258,6 @@
 			}
 			_selected = $create ? false : _selected;
 			_button.mouseEnabled = $create;
-			addElement(_button, $create);
 			addListener(_button, MouseEvent.CLICK, onPressButton, $create && _mouseEnabled);
 			addListener(_button, MouseEvent.MOUSE_OVER, onMouseEvent, $create);
 			addListener(_button, MouseEvent.MOUSE_DOWN, onMouseEvent, $create);
@@ -287,7 +284,11 @@
 		}
 
 		protected function createInvisibleButton():InteractiveObject {
-			return new SimpleButton(createFaceButton(this.width, this.height, 0x000000, 0),createFaceButton(this.width, this.height, 0x000000, 0),createFaceButton(width, height, 0x000000, 0),createFaceButton(this.width, this.height, 0x000000, 0));
+			return new SimpleButton(getFaceButton(), getFaceButton(), getFaceButton(), getFaceButton());
+		}
+
+		protected function getFaceButton():DisplayObject {
+			return createFaceButton(this.width, this.height, 0x000000, 0);
 		}
 
 		protected function createFaceButton($width:Number, $height:Number, $color:Number, $alpha:Number = 1):DisplayObject {
