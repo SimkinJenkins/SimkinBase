@@ -85,7 +85,7 @@ package com.core.config {
 						invertedSlashExist = true;
 					}
 					heritageList.push (currentHostURL);
-					currentIndexedURL = currentHost;					
+					currentIndexedURL = currentHost;
 			}
 			for (var i:Number = heritageList.length-1;i>=0;i--){
 				var currentURL:String =  heritageList[i];

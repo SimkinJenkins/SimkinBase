@@ -53,7 +53,11 @@
 		protected var _thumbsRender:uint = 0;
 		protected var _minThumbsRender:int = -1;
 		protected var _loaderClass:Class;
-		
+
+		public function get thumbsContainer():Sprite {
+			return _thumbsContainer;
+		}
+
 		public function set loaderClass($class:Class):void {
 			_loaderClass = $class;
 		}
