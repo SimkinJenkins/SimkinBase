@@ -53,6 +53,7 @@
 		protected var _thumbsRender:uint = 0;
 		protected var _minThumbsRender:int = -1;
 		protected var _loaderClass:Class;
+		protected var _thumbH:Number;
 
 		public function get thumbsContainer():Sprite {
 			return _thumbsContainer;
@@ -320,8 +321,12 @@
 		 * 
 		 */		
 		protected function posThumb($index:uint, $thumb:IThumbnail):void {
+			if(!_thumbH) {
+				_thumbH = $thumb.height;
+			}
 			$thumb.x = getXFactor($index) * ($thumb.width + _paddingX);
-			$thumb.y = getYFactor($index) * ($thumb.height + _paddingY);
+			$thumb.y = getYFactor($index) * (_thumbH + _paddingY);
+			trace("posThumb :: " + $thumb.x + ", " + $thumb.y + " ::: " + $thumb.height + " ::: " + _paddingY);
 		}
 
 		/**
