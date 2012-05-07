@@ -14,7 +14,7 @@ package com.display {
 	 * @author Simkin
 	 * 
 	 */
-	public class SpriteContainer extends Sprite implements com.interfaces.ISprite {
+	public class SpriteContainer extends Sprite implements ISprite {
 
 		public function SpriteContainer() {
 			super();
