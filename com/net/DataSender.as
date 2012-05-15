@@ -2,6 +2,8 @@ package com.net {
 
 //	import com.adobe.serialization.json.JSONDecoder;
 	
+	import com.dynamicflash.util.Base64;
+	
 	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
@@ -30,6 +32,16 @@ package com.net {
 		private var _initialTag: String;
 		private var _url: String;
 		protected var _headers:URLRequestHeader;
+		private var _dataEncode:String = "";
+
+		public function set dataEncode($value:String):void {
+			_dataEncode = $value;
+		}
+		
+		public function get dataEncode():String {
+			return _dataEncode;
+		}
+
 		// *****
 		// - Métodos get y set
 		// *****
@@ -197,24 +209,32 @@ package com.net {
 				}
 			}
 		}
-		
+
+		protected function getDecodedData($encoded:String):String {
+			switch(_dataEncode) {
+				case DataSenderFormat.BASE_64:		return Base64.decode($encoded);
+			}
+			return "";
+		}
+
 		protected function complete($event:BasicLoaderEvent):void {
 			createLoaderListeners(false);
 			var event:BasicLoaderEvent = $event.clone() as BasicLoaderEvent;
 			var response:URLLoader = _loader.loader as URLLoader;
+			var data:String = _dataEncode != "" ? getDecodedData(response.data) : response.data;
 			if(_dataFormat == DataSenderFormat.TEXT_VARIABLES){
-				_serverResponse = new ServerResponse(response.data);
+				_serverResponse = new ServerResponse(data);
 				if(_autocast){
 					_serverResponse.autocast(_omitList);
 				}
 			} else if(_dataFormat == DataSenderFormat.XML){
-				var xmlNotParsed:XML = XML(response.data);
+				var xmlNotParsed:XML = XML(data);
 				_serverResponse = new ServerResponse();
 				_serverResponse["XML"] = xmlNotParsed;
 			} else if(_dataFormat == DataSenderFormat.XML_DATA_MANAGER){
-				_serverResponse = getServerResponse(response.data, _dataFormat, _initialTag);
+				_serverResponse = getServerResponse(data, _dataFormat, _initialTag);
 			} else if(_dataFormat == DataSenderFormat.JSON) {
-				_serverResponse = getJSONServerResponse(response.data);
+				_serverResponse = getJSONServerResponse(data);
 			} else {
 				_serverResponse = new ServerResponse();
 			}
