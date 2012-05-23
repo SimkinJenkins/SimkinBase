@@ -179,7 +179,7 @@
 				return;
 				throw new Error("Thumbnail: No se puede cargar un $imageURL nulo");
 			}
-//			trace("load image ::: " + $imageURL);
+			trace("load image ::: " + $imageURL);
 			if(_image) {
 				addContainer(false);
 				_image = null;

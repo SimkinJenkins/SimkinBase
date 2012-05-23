@@ -2,6 +2,7 @@ package com.net {
 
 //	import com.adobe.serialization.json.JSONDecoder;
 	
+	import com.adobe.serialization.json.JSONDecoder;
 	import com.dynamicflash.util.Base64;
 	
 	import flash.events.EventDispatcher;
@@ -167,10 +168,10 @@ package com.net {
 
 		public static function getJSONServerResponse($unparsedJSON:String):ServerResponse {
 			var serverResponse:ServerResponse = new ServerResponse();
-//			var data:Object = (new JSONDecoder($unparsedJSON)).getValue();
-//			for(var name:String in data) {
-//				serverResponse[name] = data[name];
-//			} 
+			var data:Object = (new JSONDecoder($unparsedJSON)).getValue();
+			for(var name:String in data) {
+				serverResponse[name] = data[name];
+			} 
 			return serverResponse;
 		}
 
