@@ -326,7 +326,7 @@
 			}
 			$thumb.x = getXFactor($index) * ($thumb.width + _paddingX);
 			$thumb.y = getYFactor($index) * (_thumbH + _paddingY);
-			trace("posThumb :: " + $thumb.x + ", " + $thumb.y + " ::: " + $thumb.height + " ::: " + _paddingY);
+//			trace("posThumb :: " + $thumb.x + ", " + $thumb.y + " ::: " + $thumb.height + " ::: " + _paddingY);
 		}
 
 		/**

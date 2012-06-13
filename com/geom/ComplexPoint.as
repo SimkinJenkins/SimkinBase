@@ -122,5 +122,11 @@ package com.geom {
 			return $control ? tempPoint.sum($control) : tempPoint;
 		}
 
+		public function moveToPolar($distance:Number, $angle:Number):ComplexPoint {
+			var newX:Number = $distance * Math.cos(MathUtils.degreesToRadians($angle));
+			var newY:Number = $distance * Math.sin(MathUtils.degreesToRadians($angle));
+			return new ComplexPoint(this.x + newX, this.y + newY);
+		}
+
 	}
 }
