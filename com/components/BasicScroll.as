@@ -16,6 +16,7 @@ package com.components {
 		protected var _graphicMaxValue:Number;
 		protected var _minValue:Number = 0;
 		protected var _maxValue:Number = 1;
+		protected var _deltaScroll:Number = 0;
 
 		public function get graphic():Sprite {
 			return _graphic;
@@ -75,12 +76,14 @@ package com.components {
 
 		protected function onButtonMouseDown($event:MouseEvent):void {
 			var scroll:InteractiveObject = $event.currentTarget as InteractiveObject;
+			trace(scroll.x + " :: " + scroll.mouseX + " ::: " + _graphic.mouseX);
+			_deltaScroll = scroll.mouseX;
 			addDragListeners(scroll, false);
 			updateCurrentValue();
 		}
 
 		protected function whileDragging($event:Event):void {
-			scroll.x = Math.min(Math.max(_graphicMinValue, _graphic.mouseX), _graphicMaxValue);
+			scroll.x = Math.min(Math.max(_graphicMinValue, _graphic.mouseX - _deltaScroll), _graphicMaxValue);
 			updateCurrentValue();
 		}
 
