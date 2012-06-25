@@ -48,6 +48,17 @@ package com.utils {
 			return bitmap;
 		}
 
+		public static function getInverseClone($do:DisplayObject):DisplayObject {
+			$do = GraphicUtils.getClone($do);
+			$do.scaleX = -1;
+			var sprite:Sprite = new Sprite();
+			sprite.addChild($do);
+			$do.x = $do.width;
+			var inverse:DisplayObject = GraphicUtils.getClone(sprite);
+			sprite.removeChild($do);
+			return inverse;
+		}
+
 		public static function getClone($do:DisplayObject):DisplayObject {
 			var bitmap:Bitmap = new Bitmap(getBitmapData($do));
 			bitmap.smoothing = true;
