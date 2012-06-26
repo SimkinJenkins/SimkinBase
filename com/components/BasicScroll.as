@@ -76,7 +76,6 @@ package com.components {
 
 		protected function onButtonMouseDown($event:MouseEvent):void {
 			var scroll:InteractiveObject = $event.currentTarget as InteractiveObject;
-			trace(scroll.x + " :: " + scroll.mouseX + " ::: " + _graphic.mouseX);
 			_deltaScroll = scroll.mouseX;
 			addDragListeners(scroll, false);
 			updateCurrentValue();
@@ -90,6 +89,7 @@ package com.components {
 		protected function onButtonMouseUp($event:MouseEvent):void {
 			addDragListeners(scroll);
 			updateCurrentValue();
+			dispatchEvent(new BasicScrollEvent(BasicScrollEvent.ON_SCROLL_STOP, getCurrentValue()));
 		}
 
 		protected function updateCurrentValue():void {

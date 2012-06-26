@@ -5,6 +5,7 @@ package com.components {
 	public class BasicScrollEvent extends Event {
 
 		public static const ON_SCROLL_CHANGE:String = "onScrollChange";
+		public static const ON_SCROLL_STOP:String = "onScrollStop";
 
 		protected var _currentValue:Number;
 
