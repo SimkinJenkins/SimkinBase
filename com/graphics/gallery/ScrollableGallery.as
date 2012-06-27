@@ -56,7 +56,7 @@ package com.graphics.gallery {
 		public function set visibleHeight($value:Number):void {
 			_visibleHeight = $value;
 		}
-		
+
 		public function set left($button:SimpleButton): void{
 			_left = $button;
 		}
@@ -93,7 +93,7 @@ package com.graphics.gallery {
 			addEventListener(ON_GALLERY_RENDER, onGalleryRendered);
 			addEventListener(ON_GALLERY_FULL_LOADED, onGalleryRendered);
 		}
-		
+
 		override protected function setSelectedThumb($thumb:IThumbnail):void {
 			super.setSelectedThumb($thumb);
 			if(!_selectedGraphic) {

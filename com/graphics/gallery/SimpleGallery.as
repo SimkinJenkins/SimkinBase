@@ -39,6 +39,7 @@
 		public static const ON_GALLERY_FULL_LOADED:String = "galleryFullLoaded";
 
 		protected var _thumbs:Array;
+		protected var _data:Array;
 		protected var _rows:int;
 		protected var _columns:int;
 		protected var _thumbClass:Class;
@@ -173,7 +174,9 @@
 			if($thumbsData.length == 0) {
 				return;
 			}
-			createThumbnails($thumbsData);
+			_data = $thumbsData;
+			trace("initializeGallery :: " + _data.length);
+			createThumbnails();
 		}
 		
 		/**
@@ -202,13 +205,15 @@
 			_columns = $columns;
 		}
 
+		
 		/**
 		 * Inicializa los contenedores y variables iniciales 
 		 * 
 		 */
 		protected function init():void {
 			_thumbsContainer = new Sprite();
-			addChild(_thumbsContainer);
+			_thumbs = new Array();
+			addElement(_thumbsContainer);
 		}
 		
 		/**
@@ -227,19 +232,22 @@
 				thumb = null;
 			}
 			_thumbs = new Array();
+			_data = new Array();
 		}
-
+		
 		/**
 		 * Crea los Thumbnails, por medio de un array de datos. 
 		 * @param $thumbsData Obligatorio. Arreglo de IThumbnailData.
 		 * 
 		 */
-		protected function createThumbnails($thumbsData:Array):void {
+		protected function createThumbnails():void {
 			addChild(_thumbsContainer);
-			_thumbs = new Array();
-			var lastThumb:IThumbnail;
-			for(var i:uint = 0; i < $thumbsData.length; i++) {
-				createThumb(i, $thumbsData[i]).addEventListener(Event.ADDED, onRender);
+			doCreateThumbs(_data);
+		}
+		
+		protected function doCreateThumbs($thumbsData:Array, $i:uint = 0):void {
+			for(var i:uint = $i; i < $i + $thumbsData.length; i++) {
+				createThumb(i, $thumbsData[i - $i]).addEventListener(Event.ADDED, onRender);
 			}
 		}
 
